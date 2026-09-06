@@ -1,0 +1,66 @@
+site_name: Learning Notes
+site_description: Computer Science Learning Notes
+site_url: https://handwan.github.io/learning-notes/
+repo_url: https://github.com/handwan/learning-notes
+repo_name: learning-notes
+copyright: © 2026 han
+
+theme:
+  name: material
+  language: zh
+  font: false
+  palette:
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - navigation.path
+    - navigation.instant
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - toc.follow
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search:
+      lang:
+        - en
+        - zh
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/handwan
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
