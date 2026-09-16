@@ -1,0 +1,8 @@
+nav:
+  - 概览: index.md
+  - 线性代数: linear-algebra
+  - 概率论: probability
+  - 微积分: calculus
+  - 最优化: optimization
+  - 数值计算: numerical-computation
+  - ...
