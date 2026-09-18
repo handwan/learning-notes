@@ -1,0 +1,7 @@
+[dir="ltr"] .md-nav--primary .md-nav__list {
+    padding-left: 1rem;
+}
+
+[dir="ltr"] .md-nav--lifted > .md-nav__list > .md-nav__item > .md-nav:not(.md-nav--secondary) {
+    margin-left: 0;
+}
