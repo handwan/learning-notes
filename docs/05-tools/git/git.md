@@ -94,6 +94,7 @@ git rebase main                # dev 的基点移到 main 最新
   ```bash
   git push --force-with-lease
   ```
+
 - **分支从未推送过**：普通 `push` 即可，不需要强推。
 
 > 通用判据：本地相对远端**落后 > 0**（分叉）才需要强推；**落后 = 0**（可快进）普通 `push` 就行。
@@ -257,6 +258,23 @@ commit → 一次提交（指向一个 tree + 父提交 + 作者/消息）
 
 **含义**：Git 存的是"快照"不是"差异"，每个 commit 是一棵完整的 tree。
 
+### worktree
+
+同一个仓库，**同时检出多个工作目录**——不用 stash 就能并行干活：
+
+```bash
+git worktree add ../hotfix main      # 把 main 检出到 ../hotfix
+git worktree add -b feat ../feat     # 新建分支并检出
+git worktree list                    # 列出所有工作树
+git worktree remove ../hotfix        # 删除
+```
+
+**场景**：改到一半要紧急修 bug → 开个 worktree 去修，**当前工作一点不动**（比 stash 来回切舒服）。
+
+**对比**：`git clone` 第二份会复制整个仓库；worktree **共享同一个 `.git`**（对象、分支互通），只多一个工作区。
+
+**注意**：同一分支不能在两个 worktree 同时检出。
+
 ## 9. 标签（Tag）
 
 ```bash
@@ -306,9 +324,9 @@ feature       ●●      ●●     （功能分支 → PR → 合并）
 | 发布 | 周期发布 | 持续部署 | 持续部署 |
 | 适合 | 传统软件 | 互联网 | 成熟团队 |
 
-**面试**：偶尔问"你们团队用什么工作流"——答 GitHub Flow 即可。
+**注意**：偶尔会被问"你们团队用什么工作流"——答 GitHub Flow 即可。
 
-## 11. 面试考点总结
+## 11. 要点回顾
 
 1. **三区模型**：工作区 → 暂存区 → 版本库
 2. **reset vs revert**：reset 改历史（本地）、revert 加反向提交（公共分支）

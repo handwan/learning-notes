@@ -1,8 +1,8 @@
 nav:
   - 首页: index.md
-  - 编程语言: 01-programming
+  - 语言基础: 01-programming
   - 计算机基础: 02-computer-basics
-  - 数学: 03-math
+  - 数学基础: 03-math
   - Linux: 04-linux
   - 工具: 05-tools
   - AI: 06-ai
