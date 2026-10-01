@@ -5,3 +5,46 @@
 [dir="ltr"] .md-nav--lifted > .md-nav__list > .md-nav__item > .md-nav:not(.md-nav--secondary) {
     margin-left: 0;
 }
+
+:root > * {
+    --md-typeset-a-color: #2f6f4f;
+    --md-accent-fg-color: #2f6f4f;
+    --md-accent-fg-color--transparent: #2f6f4f1a;
+}
+
+[data-md-color-scheme="default"] {
+    --md-primary-fg-color: #faf9f7;
+    --md-primary-fg-color--light: #faf9f7b3;
+    --md-default-bg-color: #faf9f7;
+    --md-footer-bg-color: #f2f0ed;
+    --md-footer-bg-color--dark: #ebe8e4;
+    --md-footer-fg-color: rgba(0, 0, 0, 0.87);
+    --md-footer-fg-color--light: rgba(0, 0, 0, 0.54);
+    --md-footer-fg-color--lighter: rgba(0, 0, 0, 0.38);
+}
+
+[data-md-color-scheme="default"] .md-header {
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+[data-md-color-scheme="slate"] {
+    --md-typeset-a-color: #8bbf9c;
+    --md-accent-fg-color: #8bbf9c;
+    --md-accent-fg-color--transparent: #8bbf9c1a;
+    --md-accent-bg-color: #1f1f1f;
+}
+
+.md-typeset a {
+    text-decoration: none;
+}
+
+.md-typeset a:is(:focus, :hover) {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+/* 按钮文字需显式取链接色：默认取页眉色，浅色页眉下会变淡看不清 */
+.md-typeset .md-button {
+    color: var(--md-typeset-a-color);
+}

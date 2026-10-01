@@ -12,15 +12,15 @@ theme:
   palette:
     - scheme: default
       media: "(prefers-color-scheme: light)"
-      primary: indigo
-      accent: indigo
+      primary: white
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to dark mode
     - scheme: slate
       media: "(prefers-color-scheme: dark)"
-      primary: indigo
-      accent: indigo
+      primary: black
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
@@ -42,7 +42,11 @@ plugins:
       lang:
         - en
         - zh
+      pipeline: []      # 关掉词干化：lunr 对带 * 的查询词不跑词干化，索引却存词干化后的词，导致 using 这类词搜不到
   - awesome-pages
+
+hooks:
+  - hooks/fix_lunr_search.py
 
 markdown_extensions:
   - admonition
@@ -66,3 +70,4 @@ extra_css:
 extra_javascript:
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - javascripts/random.js
