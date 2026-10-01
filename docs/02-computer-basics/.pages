@@ -1,0 +1,10 @@
+nav:
+  - 概览: index.md
+  - 离散数学: discrete-mathematics
+  - 数据结构: data-structure
+  - 组成与体系结构: computer-organization
+  - 操作系统: operating-system
+  - 计算机网络: computer-network
+  - 数据库系统: database
+  - 编译原理: compiler
+  - ...
