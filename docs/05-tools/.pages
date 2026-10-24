@@ -4,8 +4,6 @@ nav:
   - CMake: cmake
   - Docker: docker
   - GDB: gdb
-  - vcpkg: vcpkg
   - clang: clang
   - perf: perf
-  - valgrind: valgrind
   - ...

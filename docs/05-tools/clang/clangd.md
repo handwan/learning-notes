@@ -2,7 +2,7 @@
 
 LLVM 的**语言服务器**（LSP）：给编辑器提供 C++ 智能功能（补全、跳转、诊断），**不用先构建**。
 
-> clangd 18.1.3（`clangd --check` 可验证配置生效）。
+> `clangd --check` 可以验证配置是否生效。
 
 ## 1. 提供什么
 
@@ -55,12 +55,12 @@ Diagnostics:
   Suppress: ['*']     # 这个目录里所有诊断静音
 ```
 
-**为什么编辑器提示比命令行少**：clangd 默认只跑"快"的 clang-tidy 检查（`FastCheckFilter: Strict`）；要全量改成 `Loose`（更慢）。
+**为什么编辑器提示比命令行少**：clangd 默认只跑"快"的 clang-tidy 检查（`Diagnostics.ClangTidy.FastCheckFilter: Strict`）；要全量改成 `Loose`（更慢）。
 
-**两个版本相关的坑**（clangd 18.1.3 实测）：
+**两个版本相关的坑**：
 
-- `CompilationDatabase: build` 这个键在 **18.x 会报 `Unknown Config key` 并被忽略**；较新版里它挂在 `CompileFlags` 下（`CompileFlags.CompilationDatabase`，可填目录 / `Ancestors` / `None`）。不影响使用：clangd 本来就会自动去 `build/` 找 `compile_commands.json`（实测日志：`Loaded compilation database from .../build/compile_commands.json`）。要显式指定目录，可以用启动参数 `clangd --compile-commands-dir=build`（VS Code 里写进 `clangd.arguments`）
-- `.clangd` 的 `Diagnostics.ClangTidy` 和 `.clang-tidy` 是**合并**关系（冲突项以 clangd 侧为准）——18.1.3 实测：两边配置的检查都会生效，不用二选一
+- `CompilationDatabase: build` 这个键在 **18.x 会报 `Unknown Config key` 并被忽略**；较新版里它挂在 `CompileFlags` 下（`CompileFlags.CompilationDatabase`，可填目录 / `Ancestors` / `None`）。不影响使用：clangd 本来就会自动去 `build/` 找 `compile_commands.json`。要显式指定目录，可以用启动参数 `clangd --compile-commands-dir=build`（VS Code 里写进 `clangd.arguments`）
+- `.clangd` 的 `Diagnostics.ClangTidy` 和 `.clang-tidy` 是**合并**关系（冲突项以 clangd 侧为准）——两边配置的检查都会生效，不用二选一
 
 ## 4. 编辑器（VS Code）
 

@@ -2,7 +2,7 @@
 
 代码排版工具：**统一风格、不用人肉对齐**（空格/缩进/换行/`#include` 排序）。
 
-> clang-format 18.1.3；下面的预设差异与格式化效果均为真实输出。
+> 预设差异和格式化效果如下。
 
 ## 1. 基本用法
 
@@ -17,7 +17,7 @@ clang-format --style=file -i file.cpp    # 用项目里的 .clang-format
 shopt -s globstar && clang-format -i src/**/*.cpp
 ```
 
-## 2. 预设风格：差在哪（实测对比）
+## 2. 预设风格：差在哪
 
 `clang-format -style=<预设> -dump-config` 看全部配置。几个关键项：
 
@@ -49,7 +49,7 @@ DerivePointerAlignment: false
 SortIncludes: CaseSensitive   # Never / CaseSensitive / CaseInsensitive（默认 CaseSensitive）
 ```
 
-**实测效果**（`--style=Google`，一段乱排的代码）：
+**效果示例**（`--style=Google`，一段乱排的代码）：
 
 ```cpp
 // 前：include 顺序乱、缩进不一致

@@ -39,7 +39,7 @@ clang++ -Weverything main.cpp                                  # 开所有警告
 clang++ -Weverything -Wno-c++98-compat -Wno-padded main.cpp    # 再逐个关掉不要的
 ```
 
-gcc 没有等价物（gcc 只有 `-Wall -Wextra` 两档）。
+gcc 没有 `-Weverything`；它有 `-Wall`/`-Wextra` 和大量单独的 `-W` 选项，需要按需组合。
 
 ### `-ftime-trace`（编译耗时分析）
 
@@ -69,6 +69,8 @@ clang++ -fsanitize=leak      -g main.cpp   # LSan：内存泄漏（Linux 上 ASa
 ```
 
 **clang 支持最全**（尤其 MSan 只有 clang 有）。
+
+> MSan 要求 libc++ 和依赖也插桩；只给主程序加 `-fsanitize=memory` 会漏报。
 
 （各工具抓什么 → C++ 的[性能优化与调试](../../01-programming/cpp/性能优化与调试.md) §9；哪些选项容易"过度" → 本文 §6。）
 
@@ -105,22 +107,22 @@ clang++ --target=aarch64-linux-gnu --sysroot=/usr/aarch64-linux-gnu main.cpp -o 
 | `-fno-color-diagnostics` | 关掉彩色诊断（写日志 / CI 用） |
 | `-w` / `-Werror` | 关警告 / 把警告当错误 |
 
-## 5. 实测：特色功能的真跑证据
+## 5. 特色功能示例
 
-上面每个特色都真跑过（clang 18.1.3）：
+几个典型现象：
 
-| 功能 | 实测命令/结果 |
+| 功能 | 示例/现象 |
 |------|--------------|
 | **静态分析器** | `clang++ --analyze leak.cpp` → `warning: Potential leak of memory pointed to by 'p' [unix.Malloc]`，并生成 `leak.plist` |
 | **ASan** | `-fsanitize=address` 跑越界写 → `ERROR: AddressSanitizer: heap-buffer-overflow` |
-| **`-ftime-trace`** | `clang++ -ftime-trace -c t.cpp -o t.o` → 生成 `t.json`（210 条 traceEvents、总耗时 1535 ms，Chrome 打开看热点） |
+| **`-ftime-trace`** | `clang++ -ftime-trace -c t.cpp -o t.o` → 生成 `t.json`，Chrome 打开看热点 |
 | **`-###`** | 打印真实执行的 `clang -cc1 ...` 命令（看 include 路径/内部选项） |
-| **`--target` 交叉编译** | `--target=aarch64-linux-gnu` 不带 sysroot → `fatal error: 'vector' file not found`（验证了"必须配 sysroot"） |
+| **`--target` 交叉编译** | `--target=aarch64-linux-gnu` 不带 sysroot → `fatal error: 'vector' file not found`（说明必须配 sysroot） |
 
 **两个使用注意**：
 
 - `-ftime-trace` 的输出名跟 `-o` 走（`-o t.o` → `t.json`；写成 `-o /dev/null` 会尝试写 `/dev/null.json` 报错）
-- 静态分析器**报告比编译警告深**，但慢——适合按需跑（CI 夜间/重点模块），不必每次编译都开
+- 静态分析器**报告比编译警告深**，但慢——适合按需跑（CI 夜间/关键模块），不必每次编译都开
 
 ## 6. 编译配置（三套 build）
 
@@ -156,6 +158,8 @@ clang++ -std=c++23 \
 | `-fno-sanitize-recover=all` | 出错立刻 abort，不埋隐患 |
 | `-fno-omit-frame-pointer` | ASan 栈回溯必需 |
 | **`-D_GLIBCXX_ASSERTIONS`** | 容器越界（`v[i]`）立刻报，几乎零成本 |
+
+> `_GLIBCXX_ASSERTIONS` 只适用于 libstdc++；用 libc++ 时改用 `_LIBCPP_HARDENING_MODE`。
 
 ### 容易"过度"的选项（不是越多越好）
 
@@ -236,7 +240,7 @@ cmake -S . -B build \
 | clang 加 `-stdlib=libc++` | 和 libstdc++ **不兼容** ❌（链接错 / 运行时崩） |
 | 项目里混用 gcc 和 clang 编的 `.o` / `.so` | 要保证标准库一致，否则出问题 |
 
-**结论**：一个项目**要么全 gcc、要么全 clang**，别混；换 libc++ 更要整个项目统一。
+**结论**：混用 gcc/clang 本身通常没问题（Linux 默认都用 libstdc++，ABI 兼容）；真正不能混的是 libstdc++ 和 libc++。换 libc++ 要整个项目统一。
 
 ## 9. 什么时候用 clang
 

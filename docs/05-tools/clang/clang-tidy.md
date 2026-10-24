@@ -2,7 +2,7 @@
 
 基于 AST 的**静态检查**：找 bug、性能问题、过时写法，并给现代 C++ 改写建议（很多能自动修）。
 
-> clang-tidy 18.1.3；下面 `bad.cpp` 的告警与 `--fix` 均为真实输出。
+> 下面的告警和 `--fix` 是典型示例。
 
 ## 1. 基本用法
 
@@ -30,7 +30,7 @@ clang-tidy -checks='-*,modernize-*,bugprone-*,performance-*' -p build src/a.cpp
 
 **注意**：`-*` 会把**编译器诊断**（`clang-diagnostic-*`）也一起关掉——想保留 `-Wall` 那类警告要显式加回（如 `-checks='-*,modernize-*,clang-diagnostic-*'`）；另外 `-*` 单独用会直接报 `no checks enabled`。
 
-**实测告警样例**（对一段"能用但不现代"的代码跑上面这组检查）：
+**告警样例**（对一段"能用但不现代"的代码跑上面这组检查）：
 
 ```
 bad.cpp:4:30: warning: annotate this function with 'override' ... [modernize-use-override]
@@ -42,7 +42,7 @@ bad.cpp:10:6: warning: use a trailing return type ...        [modernize-use-trai
 
 ## 3. 自动修复（--fix）
 
-实测 `clang-tidy --fix --fix-errors -checks='-*,modernize-*' bad.cpp -- -std=c++20` 的改动：
+示例 `clang-tidy --fix --fix-errors -checks='-*,modernize-*' bad.cpp -- -std=c++20` 的改动：
 
 ```diff
 -struct Derived : Base { void f(); };
