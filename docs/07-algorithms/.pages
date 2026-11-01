@@ -1,0 +1,4 @@
+nav:
+  - index.md
+  - 基础算法: theory
+  - 题单: leetcode
