@@ -1,0 +1,13 @@
+nav:
+  - index.md
+  - Tokenizer: 01-Tokenizer.md
+  - LLM 架构: 02-LLM架构.md
+  - 预训练目标: 03-预训练目标.md
+  - 预训练数据: 04-预训练数据.md
+  - Scaling laws: 05-Scaling-laws.md
+  - 解码与采样: 06-解码与采样.md
+  - 微调与对齐: 07-微调与对齐.md
+  - 推理模型: 08-推理模型.md
+  - 评测与安全: 09-评测与安全.md
+  - 模型家族与选型: 10-模型家族与选型.md
+  - ...

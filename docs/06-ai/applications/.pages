@@ -1,0 +1,9 @@
+nav:
+  - index.md
+  - RAG: 01-RAG.md
+  - Agent 与工具调用: 02-Agent与工具调用.md
+  - 结构化输出: 03-结构化输出.md
+  - MCP 与工具生态: 04-MCP与工具生态.md
+  - 应用评测: 05-应用评测.md
+  - Guardrails 与安全: 06-Guardrails与安全.md
+  - ...

@@ -1,0 +1,10 @@
+nav:
+  - index.md
+  - ML Basics: ml-basics
+  - DL Basics: dl-basics
+  - LLM: llm
+  - Infra: infra
+  - Training: training
+  - Inference: inference
+  - Applications: applications
+  - Papers: papers
