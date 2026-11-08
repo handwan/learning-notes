@@ -5,7 +5,8 @@ nav:
   - 数学基础: 03-math
   - Linux: 04-linux
   - 工具: 05-tools
-  - AI: 06-ai
+  - AI Engineering: 06-ai
   - 算法: 07-algorithms
   - 其他: 08-misc
+  - 系统设计: 09-system-design
   - ...
